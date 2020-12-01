@@ -12,6 +12,6 @@ For the front-end I'm using React. I am told that this is a good program for thi
 
  ![alt text](images/login.jpg)
 
- ![alt text](images/log info page.jpg)
+ ![alt text](images/infopage.jpg)
 
  ![alt text](images/8D1BE83F-C631-406C-AA73-72F88914A796.jpeg)
