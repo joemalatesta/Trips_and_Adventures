@@ -18,10 +18,9 @@ def test_user_resource():
 @user.route('/register', methods=['POST'])
 def register():
     payload = request.get_json()
-
     payload['username'] = payload['username'].lower()
     payload['email'] = payload['email'].lower()
-    payload['photo'] = payload['photo']
+
     try:
         models.User.get(models.User.email== payload['email'])
         return jsonify(
@@ -36,8 +35,8 @@ def register():
             username=payload['username'],
             email=payload['email'],
             password=pw_hash,
-            photo=payload['photo']
         )
+
         created_user_dict = model_to_dict(created_user)
         print(created_user_dict)
         login_user(created_user)
@@ -45,18 +44,19 @@ def register():
 
         return jsonify(
             data=created_user_dict,
-            message=f"Successfully registered user {created_user_dict['email']}",
+            message=f"Successfully registered user {created_user_dict['username']}",
             status=201
         ), 201
+
 
 @user.route('/login', methods=['POST'])
 def login():
     payload = request.get_json()
-    payload['email'] = payload['email'].lower()
-    # payload['username'] = payload['username'].lower()
+    #payload['email'] = payload['email'].lower()
+    payload['username'] = payload['username'].lower()
 
     try:
-        user = models.User.get(models.User.email == payload['email'])
+        user = models.User.get(models.User.username == payload['username'])
 
         user_dict = model_to_dict(user)
         password_is_good = check_password_hash(user_dict['password'], payload['password'])
@@ -67,7 +67,7 @@ def login():
 
             return jsonify(
                 data=user_dict,
-                message=f"Successfully logged in {user_dict['email']}",
+                message=f"Successfully logged in {user_dict['username']}",
                 status=200
             ), 200
         else:
@@ -80,7 +80,7 @@ def login():
     except models.DoesNotExist:
         return jsonify(
             data={},
-            message="Email or password is incorrect",
+            message="Username or password is incorrect",
             status=401
         ), 401
 
