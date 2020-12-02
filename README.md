@@ -10,6 +10,9 @@ I am building this app with a Python3 / flask Back-end. I choose this because a 
 For the front-end I'm using React. I am told that this is a good program for this and I am still learning how to use it.
 
 
+
+ ![alt text](images/FlowChart.jpg)
+
  ![alt text](images/login.jpg)
 
  ![alt text](images/infopage.jpg)
