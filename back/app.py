@@ -3,6 +3,9 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from resources.users import user
 from resources.trips import trip
+from resources.comments import comment
+from resources.posts import post
+from resources.pictures import picture
 from flask_login import LoginManager, current_user, login_required
 from playhouse.shortcuts import model_to_dict
 from peewee import *
@@ -34,12 +37,18 @@ def load_user(user_id):
         return None
 
 
-CORS(trip, origins=['http://localhost:3000'], supports_credentials=True)
 CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(trip, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(post, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(picture, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(comment, origins=['http://localhost:3000'], supports_credentials=True)
 
 
+app.register_blueprint(user, url_prefix='/api/users')
 app.register_blueprint(trip, url_prefix='/api/trips')
-app.register_blueprint(user, url_prefix='/api/trips')
+app.register_blueprint(post, url_prefix='/api/posts')
+app.register_blueprint(picture, url_prefix='/api/pictures')
+app.register_blueprint(comment, url_prefix='/api/comments')
 
 
 @app.route('/')

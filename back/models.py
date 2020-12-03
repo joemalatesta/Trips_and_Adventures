@@ -19,16 +19,16 @@ class User(UserMixin, Model):
 
 class Trips(Model):
     trip_name = CharField()
-    is_trip_public = CharField()
     trip_date = CharField()
-    trip_owner = ForeignKeyField(User, backref='trips')
-    stops = CharField()
+    user = ForeignKeyField(User, backref='trips')
 
     class Meta:
         database = DATABASE
 
+
 class Posts(Model):
     user_posts = CharField()
+    trip_id = ForeignKeyField(Trips, backref='posts')
 
     class Meta:
         database = DATABASE
@@ -36,8 +36,7 @@ class Posts(Model):
 
 class Pictures(Model):
     trip_pics = CharField()
-    pic_comments = CharField()
-    trip_post = ForeignKeyField(Trips, backref='')
+    post_id = ForeignKeyField(Posts, backref='pictures')
 
     class Meta:
         database = DATABASE
@@ -45,7 +44,7 @@ class Pictures(Model):
 
 class Comments(Model):
     comments = CharField()
-    pic_owner = ForeignKeyField(Trips, backref='')
+    pic_id = ForeignKeyField(Pictures, backref='comments')
 
     class Meta:
         database = DATABASE
