@@ -9,22 +9,11 @@ from playhouse.shortcuts import model_to_dict
 picture = Blueprint('pictures', 'picture')
 
 
-@picture.route('/all', methods=['GET'])
-def get_all_the_pictures():
-    try:
-        all_pictures = [model_to_dict(picture) for picture in models.Pictures]
-        print(f"here is the list of pictures. {all_pictures}")
-        return jsonify(data=all_pictures, status={"code": 201, "message": "success"})
-
-    except models.DoesNotExist:
-        return jsonify(
-        data={}, status={"code": 401, "message": "Error getting Resources"})
-
 
 @picture.route('/', methods=['GET'])
 def get_all_my_pictures():
     try:
-        pictures = [model_to_dict(picture) for picture in current_user.Pictures]
+        pictures = [model_to_dict(picture) for picture in models.Pictures]
         print(f"here is the list of pictures. {pictures}")
         return jsonify(data=pictures, status={"code": 201, "message": "success"})
 
@@ -39,9 +28,9 @@ def create_picture():
     try:
         payload = request.get_json()
         print(payload)
-        created_picture = models.Picture.create(
+        created_picture = models.Pictures.create(
         trip_pics=payload['trip_pics'],
-        post_id=payload['post_id']
+        post_id=current_user.id
         )
 
         picture_dict = model_to_dict(created_picture)

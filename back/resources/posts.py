@@ -29,7 +29,7 @@ def create_post():
         print(payload)
         created_post = models.Posts.create(
         user_posts=payload['user_posts'],
-        trip_id=payload['trip_id']
+        trip_id=current_user.id
         )
 
         post_dict = model_to_dict(created_post)

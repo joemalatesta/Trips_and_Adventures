@@ -9,22 +9,11 @@ from playhouse.shortcuts import model_to_dict
 comment = Blueprint('comments', 'comment')
 
 
-@comment.route('/all', methods=['GET'])
-def get_all_the_comments():
-    try:
-        all_comments = [model_to_dict(comment) for comment in models.Comments]
-        print(f"here is the list of comments. {all_comments}")
-        return jsonify(data=all_comments, status={"code": 201, "message": "success"})
-
-    except models.DoesNotExist:
-        return jsonify(
-        data={}, status={"code": 401, "message": "Error getting Resources"})
-
 
 @comment.route('/', methods=['GET'])
 def get_all_my_comments():
     try:
-        comments = [model_to_dict(comment) for comment in current_user.Comments]
+        comments = [model_to_dict(comment) for comment in models.Comments]
         print(f"here is the list of comments. {comments}")
         return jsonify(data=comments, status={"code": 201, "message": "success"})
 
@@ -39,9 +28,9 @@ def create_comment():
     try:
         payload = request.get_json()
         print(payload)
-        created_comment = models.Comment.create(
+        created_comment = models.Comments.create(
         comments=payload['comments'],
-        pic_id=payload['pic_id']
+        pic_id=current_user.id
         )
 
         comment_dict = model_to_dict(created_comment)
