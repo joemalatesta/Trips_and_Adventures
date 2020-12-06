@@ -22,6 +22,7 @@ def get_all_the_trips():
 
 
 @trip.route('/', methods=['GET'])
+@login_required
 def get_all_my_trips():
     try:
         trips = [model_to_dict(trip) for trip in current_user.trips]
@@ -41,6 +42,7 @@ def create_trip():
     created_trip = models.Trips.create(
     trip_name=payload['trip_name'],
     trip_date=payload['trip_date'],
+    about_trip=payload['about_trip'],
     user=current_user.id
     )
     trip_dict = model_to_dict(created_trip)

@@ -20,6 +20,7 @@ class User(UserMixin, Model):
 class Trips(Model):
     trip_name = CharField()
     trip_date = CharField()
+    about_trip = CharField()
     user = ForeignKeyField(User, backref='trips')
 
     class Meta:
