@@ -3,7 +3,7 @@ import { Card } from 'semantic-ui-react'
 
 export default function TripCard(props) {
 
-  const trips = props.trips.map(trip => {
+  const trip = props.trips.map(trip => {
     return (
       <Card key={ trip.id } onClick={ () => props.getTrip(trip.id) }>
         <Card.Content>
@@ -17,8 +17,10 @@ export default function TripCard(props) {
   })
 
   return (
-    <Card.Group centered={ true }>
-      { trips }
+    <Card.Group
+      centered={ true }
+      backgroundcolor={ 'green' }>
+      { trip }
     </Card.Group>
   )
 }

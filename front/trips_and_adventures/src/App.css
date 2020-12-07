@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  background: green;
 }
 .navBar {
 
@@ -13,6 +12,6 @@
 
 }
 body {
-  background: url(./pictures/IMG_0152.JPG);
+  background: url(./pictures/014.JPG);
   background-size: cover;
 }

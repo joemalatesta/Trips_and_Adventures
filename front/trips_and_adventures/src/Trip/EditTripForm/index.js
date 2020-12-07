@@ -7,11 +7,11 @@ export default class EditTripForm extends Component {
     super(props)
 
     this.state = {
-      trip_name: props.trips[props.tripIdToEdit].trip_name,
-      trip_date: props.trips[props.tripIdToEdit].trip_date,
-      about_trip: props.trips[props.tripIdToEdit].about_trip
+      trip_name: this.props.trip.trip_name,
+      trip_date: this.props.trip.trip_date,
+      about_trip: this.props.trip.about_trip
     }
-    console.log(props.trips[props.tripIdToEdit])
+    console.log(props.trip)
   }
 
   handleChange = (event) => {
@@ -29,7 +29,7 @@ export default class EditTripForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
 
-    this.props.editTrip(this.state)
+    this.props.updateTrip(this.props)
     this.props.toggleEditTripForm()
 
     this.setState({
@@ -50,7 +50,7 @@ export default class EditTripForm extends Component {
       >
         <Modal.Header>Edit Trip Listing</Modal.Header>
         <Modal.Content image>
-          <Image size="medium" src="https://t4.ftcdn.net/jpg/02/11/73/73/360_F_211737333_nxBcIVfrybNy6nRiewn9Ynh20UJQCfSp.jpg" wrapped />
+          <Image size="medium" src="https://s3-us-west-1.amazonaws.com/acropolis-wp-content-uploads/2019/06/bulldozer-digging-construction-dirt-worksite.jpg" wrapped />
           <Modal.Description>
             <Header>Enter Trip Listing Information</Header>
             <Label>Trip Name:</Label>
@@ -69,8 +69,9 @@ export default class EditTripForm extends Component {
               />
               <Label>About the Trip:</Label>
               <Form.Input
-                type="text"
+                control="textarea"
                 name="about_trip"
+                rows='4'
                 value={ this.state.about_trip }
                 onChange={ this.handleChange }
               />
@@ -79,7 +80,7 @@ export default class EditTripForm extends Component {
         <Modal.Actions>
           <Button color='red' onClick={ this.props.toggleEditTripForm }>Cancel</Button>
           <Button
-            content="Create Trip Listing"
+            content="Change Trip Listing"
             labelPosition="right"
             icon="checkmark"
             type="Submit"

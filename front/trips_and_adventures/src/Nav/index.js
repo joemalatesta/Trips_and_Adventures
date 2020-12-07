@@ -17,6 +17,25 @@ export default class Nav extends Component {
       displayCreateTripForm: false
     }
   }
+  // 
+  // toggleAllTrips = () => {
+  //   this.setState({
+  //     displayTitleScreen: false,
+  //     displayLoginUserForm: false,
+  //     displayRegisterUserForm: false,
+  //     displayCreateTripForm: false,
+  //   })
+  //   this.props.seeAllTrips()
+  // }
+  //
+  // toggleAllMyTrips = () => {
+  //   this.setState({
+  //     displayTitleScreen: false,
+  //     displayLoginUserForm: false,
+  //     displayRegisterUserForm: false,
+  //     displayCreateTripForm: false,
+  //   })
+  // }
 
   toggleTitleScreen = () => {
     this.setState({
@@ -52,12 +71,12 @@ export default class Nav extends Component {
               <Menu.Item
                 icon='box'
                 name='All Trips'
-                onClick={() => this.props.getTrips}
+                onClick={ this.props.seeAllTrips }
               />
               <Menu.Item
                 icon='map'
                 name='My Trips'
-                onClick={() => this.props.getMyTrips}
+                onClick={ this.props.seeAllMyTrips}
               />
               <Menu.Item
                 icon='edit'
@@ -66,7 +85,7 @@ export default class Nav extends Component {
               />
               <Menu.Item
                 icon='user'
-                name={this.state.username}
+                name={this.props.currentUserName}
                 position='right'
               />
               <Menu.Item
@@ -82,51 +101,51 @@ export default class Nav extends Component {
               <Menu.Item
                 icon='box'
                 name='All Trips'
-                onClick={() => this.props.getTrips}
+                onClick={ this.props.seeAllTrips }
               />
               <Menu.Item
                 icon='sign-in'
                 name='Log In'
                 position='right'
-                onClick={this.toggleLoginUserForm}
+                onClick={ this.toggleLoginUserForm }
               />
               <Menu.Item
                 icon='compass'
                 name='Register'
-                onClick={this.toggleRegisterUserForm}
+                onClick={ this.toggleRegisterUserForm }
               />
             </React.Fragment>
         }
         {
           this.state.displayLoginUserForm
           && <LoginUserForm
-            loginUser={this.props.loginUser}
-            toggleLoginUserForm={this.toggleLoginUserForm}
-            displayLoginUserForm={this.state.displayLoginUserForm}
+            loginUser={ this.props.loginUser }
+            toggleLoginUserForm={ this.toggleLoginUserForm }
+            displayLoginUserForm={ this.state.displayLoginUserForm }
           />
         }
         {
           this.state.displayRegisterUserForm
           && <NewUserForm
-            createUser={this.props.createUser}
-            toggleRegisterUserForm={this.toggleRegisterUserForm}
-            displayRegisterUserForm={this.state.displayRegisterUserForm}
+            createUser={ this.props.createUser }
+            toggleRegisterUserForm={ this.toggleRegisterUserForm }
+            displayRegisterUserForm={ this.state.displayRegisterUserForm }
           />
         }
         {
           this.state.displayCreateTripForm
           && <NewTripForm
-            createTrip={this.props.createTrip}
-            toggleCreateTripForm={this.toggleCreateTripForm}
-            displayCreateTripForm={this.state.displayCreateTripForm}
+            createTrip={ this.props.createTrip }
+            toggleCreateTripForm={ this.toggleCreateTripForm }
+            displayCreateTripForm={ this.state.displayCreateTripForm }
           />
         }
         {
           this.state.displayTitleScreen
           && <TitlePage
-            titlePage={this.props.showTitlePage}
-            toggleTitleScreen={this.toggleTitleScreen}
-            displayTitleScreen={this.state.displayTitleScreen}
+            titlePage={ this.props.showTitlePage }
+            toggleTitleScreen={ this.toggleTitleScreen }
+            displayTitleScreen={ this.state.displayTitleScreen }
           />
         }
       </Menu>

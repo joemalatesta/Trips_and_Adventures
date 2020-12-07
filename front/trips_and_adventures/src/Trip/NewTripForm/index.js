@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Form, Header, Image, Label, Modal } from 'semantic-ui-react'
-
+import Nav from '../../Nav'
 export default class NewTripForm extends Component {
   constructor(props) {
     super(props)
