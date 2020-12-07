@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import TripContainer from '../TripContainer'
-import ShowTrip from '../ShowTrip'
+import TripContainer from '../Trip/TripContainer'
+import ShowTrip from '../Trip/ShowTrip'
 
 
 export default class Body extends Component {
@@ -8,14 +8,21 @@ export default class Body extends Component {
     super(props)
 
     this.state = {
-      displayEditTripForm: false
+      displayEditTripForm: false,
+      displayNewPostForm: false
     }
   }
 
   toggleEditTripForm = (tripToEdit) => {
     this.setState({
       displayEditTripForm: !this.state.displayEditTripForm,
-      // TripIdToEdit: TripToEdit-1
+      //TripIdToEdit: TripIdToEdit-1
+    })
+  }
+
+  toggleNewPostForm =() => {
+    this.setState({
+      displayNewPostForm: !this.state.displayNewPostForm
     })
   }
 
@@ -33,6 +40,7 @@ export default class Body extends Component {
               loggedIn={ this.props.loggedIn }
               getTrip={ this.props.getTrip }
               toggleEditTripForm={ this.toggleEditTripForm }
+              togglePostForm={ this.togglePostForm }
             />
         }
       </React.Fragment>

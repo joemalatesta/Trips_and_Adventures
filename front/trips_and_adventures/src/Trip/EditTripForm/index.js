@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Form, Header, Image, Label, Modal } from 'semantic-ui-react'
-
+import ShowTrip from '../ShowTrip'
 export default class EditTripForm extends Component {
+
   constructor(props) {
     super(props)
 
@@ -10,6 +11,7 @@ export default class EditTripForm extends Component {
       trip_date: props.trips[props.tripIdToEdit].trip_date,
       about_trip: props.trips[props.tripIdToEdit].about_trip
     }
+    console.log(props.trips[props.tripIdToEdit])
   }
 
   handleChange = (event) => {

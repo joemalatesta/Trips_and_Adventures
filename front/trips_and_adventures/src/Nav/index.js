@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import { Menu } from 'semantic-ui-react'
-import LoginUserForm from '../LoginUserForm'
-import NewUserForm from '../NewUserForm'
-import NewTripForm from '../NewTripForm'
+import LoginUserForm from '../User/LoginUserForm'
+import NewUserForm from '../User/NewUserForm'
+import NewTripForm from '../Trip/NewTripForm'
 import TitlePage from '../TitlePage'
-
 
 export default class Nav extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      username: this.props.username,
       displayTitleScreen: true,
       displayLoginUserForm: false,
       displayRegisterUserForm: false,
@@ -49,15 +49,52 @@ export default class Nav extends Component {
           this.props.loggedIn
             ?
             <React.Fragment>
-              <Menu.Item icon='box' name='All Trips' onClick={this.props.getTrips} />
-              <Menu.Item icon='map' name='My Trips' onClick={this.props.getMyTrips} />
-              <Menu.Item icon='edit' name='New Trip' onClick={this.toggleCreateTripForm} />
-              <Menu.Item icon='sign-out' name='Log Out' position='right' onClick={this.props.logoutUser} />
+              <Menu.Item
+                icon='box'
+                name='All Trips'
+                onClick={() => this.props.getTrips}
+              />
+              <Menu.Item
+                icon='map'
+                name='My Trips'
+                onClick={() => this.props.getMyTrips}
+              />
+              <Menu.Item
+                icon='edit'
+                name='New Trip'
+                onClick={this.toggleCreateTripForm}
+              />
+              <Menu.Item
+                icon='user'
+                name={this.state.username}
+                position='right'
+              />
+              <Menu.Item
+                icon='sign-out'
+                name='Log Out'
+                position='right'
+                onClick={this.props.logoutUser}
+              />
+
             </React.Fragment>
             :
             <React.Fragment>
-              <Menu.Item icon='sign-in' name='Log In' position='right' onClick={this.toggleLoginUserForm}/>
-              <Menu.Item icon='compass' name='Register' onClick={this.toggleRegisterUserForm}/>
+              <Menu.Item
+                icon='box'
+                name='All Trips'
+                onClick={() => this.props.getTrips}
+              />
+              <Menu.Item
+                icon='sign-in'
+                name='Log In'
+                position='right'
+                onClick={this.toggleLoginUserForm}
+              />
+              <Menu.Item
+                icon='compass'
+                name='Register'
+                onClick={this.toggleRegisterUserForm}
+              />
             </React.Fragment>
         }
         {

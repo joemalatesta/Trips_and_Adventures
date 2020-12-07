@@ -15,9 +15,6 @@ export default class App extends Component {
     }
   }
 
-  componentDidMount() {
-  }
-
   getTrips = async () => {
   try {
     const url = process.env.REACT_APP_API_URL + "/api/trips/all"
@@ -52,30 +49,33 @@ export default class App extends Component {
     }
   }
 
-  getMyTrips = async () => {
-    try {
-      const url = process.env.REACT_APP_API_URL + "/api/trips/"
+  // getMyTrips = async () => {
+  //   try {
+  //     const url = process.env.REACT_APP_API_URL + "/api/trips/"
+  //
+  //     console.log(url)
+  //
+  //     const tripsResponse = await fetch(url, { credentials: 'include' })
+  //
+  //     const tripsJson = await tripsResponse.json()
+  //
+  //     this.setState({
+  //       trips: tripsJson.data,
+  //       showTrip: !this.state.showTrip
+  //     })
+  //
+  //     console.log(this.state.trips)
+  //
+  //   } catch(err) {
+  //     console.log("Error getting trip data.", err)
+  //   }
+  // }
 
-      console.log(url)
-
-      const tripsResponse = await fetch(url, { credentials: 'include' })
-
-      const tripsJson = await tripsResponse.json()
-
-      this.setState({
-        trips: tripsJson.data,
-        showTrip: !this.state.showTrip
-      })
-
-      console.log(this.state.trips)
-
-    } catch(err) {
-      console.log("Error getting trip data.", err)
-    }
-  }
 
   createTrip = async (tripToCreate) => {
     console.log(tripToCreate)
+    console.log(this.props.trips)
+    console.log(this.currentUserId)
     try {
       const url = process.env.REACT_APP_API_URL + '/api/trips/'
 
@@ -103,59 +103,38 @@ export default class App extends Component {
           trips: [...this.state.trips, createTripJson.data]
         })
       }
-      this.getMyTrips()
+      this.getTrips()
     } catch(err) {
       console.log('ERROR CREATING Trip', err)
     }
   }
 
-  updateTrip = async (updatedTripInfo) => {
-    try {
-      const url = process.env.REACT_APP_API_URL + '/api/trips/' + this.state.tripIdToEdit
-      const updateTripResponse = await fetch(url, {
-        credentials: 'include',
-        method: 'PUT',
-        body: JSON.stringify(updatedTripInfo),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const updateTripJson = await updateTripResponse.json()
+  // updateTrip = async (updatedTripInfo) => {
+  //   try {
+  //     const url = process.env.REACT_APP_API_URL + '/api/trips/' + this.state.tripIdToEdit
+  //     const updateTripResponse = await fetch(url, {
+  //       credentials: 'include',
+  //       method: 'PUT',
+  //       body: JSON.stringify(updatedTripInfo),
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
+  //     const updateTripJson = await updateTripResponse.json()
+  //
+  //     if(updateTripResponse.status === 200) {
+  //       console.log('Trip UPDATED.')
+  //       this.setState({
+  //         trips: updateTripJson.data,
+  //         tripIdToEdit: -1
+  //       })
+  //     }
+  //     this.getMyTrips()
+  //   } catch(err) {
+  //     console.log('ERROR UPDATING Trip.', err)
+  //   }
+  // }
 
-      if(updateTripResponse.status === 200) {
-        console.log('Trip UPDATED.')
-        this.setState({
-          trips: updateTripJson.data,
-          tripIdToEdit: -1
-        })
-      }
-      this.getMyTrips()
-    } catch(err) {
-      console.log('ERROR UPDATING Trip.', err)
-    }
-  }
-
-  deleteTrip = async () => {
-    try {
-      const url = process.env.REACT_APP_API_URL + '/api/trips/' + this.state.tripIdToDelete
-      const deleteTripResponse = await fetch(url, {
-        credentials: 'include',
-        method: 'DELETE'
-      })
-      const deleteTripJson = await deleteTripResponse.json()
-
-      if(deleteTripResponse.status === 200) {
-        console.log('Trip DELETED.', deleteTripJson)
-        this.setState({
-          trips: [],
-          showTrip: false
-        })
-      }
-      this.getMyTrips()
-    } catch(err) {
-      console.log('ERROR DELETING Trip.', err)
-    }
-  }
 
   createUser = async (userToAdd) => {
     console.log(userToAdd)
@@ -225,15 +204,22 @@ export default class App extends Component {
     } catch(err) {
       console.error("ERROR LOGGING OUT", err)
     }
+    this.getTrips()
   }
 
 
+
+  componentDidMount() {
+    this.getTrips()
+  }
 
   render() {
     return (
       <div className='App'>
         <Nav
           loggedIn={ this.state.loggedIn }
+          getTrips={() => this.getTrips}
+          getMyTrips={ this.getMyTrips }
           createTrip={ this.createTrip }
           createUser={ this.createUser }
           loginUser={ this.loginUser }
@@ -244,7 +230,7 @@ export default class App extends Component {
           showTrip={ this.state.showTrip }
           loggedIn={ this.state.loggedIn }
           currentUserId={ this.state.currentUserId }
-
+          getTrips={this.getTrips}
           getTrip={ this.getTrip }
           editTrip={ this.editTrip }
         />

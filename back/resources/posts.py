@@ -9,17 +9,6 @@ from playhouse.shortcuts import model_to_dict
 post = Blueprint('posts', 'post')
 
 
-@post.route('/', methods=['GET'])
-def get_all_my_posts():
-    try:
-        post = [model_to_dict(post) for post in models.Posts]
-        print(f"here is the list of posts. {post}")
-        return jsonify(data=post, status={"code": 201, "message": "success"})
-
-    except models.DoesNotExist:
-        return jsonify(
-        data={}, status={"code": 401, "message": "Error getting Resources"})
-
 
 @post.route('/', methods=["POST"])
 @login_required
@@ -39,12 +28,14 @@ def create_post():
 
 
 @post.route('/<id>', methods=["GET"])
+@login_required
 def get_one_post(id):
     post = models.Post.get_by_id(id)
     return jsonify(data=model_to_dict(post), status={"code": 200, "message": "Success"})
 
 
 @post.route('/<id>', methods=["PUT"])
+@login_required
 def update_post(id):
     payload = request.get_json()
     query = models.Post.update(**payload).where(models.Post.id==id)
@@ -54,6 +45,7 @@ def update_post(id):
 
 
 @post.route('/<id>', methods=["DELETE"])
+@login_required
 def delete_post(id):
     delete_query = models.Post.delete().where(models.Post.id == id)
     num_of_rows_deleted = delete_query.execute()

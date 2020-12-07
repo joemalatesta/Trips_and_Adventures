@@ -10,6 +10,7 @@ export default function TripCard(props) {
           <Card.Header>{ trip.trip_name }</Card.Header>
           <Card.Meta>{ trip.trip_date }</Card.Meta>
           <Card.Description>{ trip.about_trip }</Card.Description>
+          <Card.Meta>{ trip.user.username }</Card.Meta>
         </Card.Content>
       </Card>
     )

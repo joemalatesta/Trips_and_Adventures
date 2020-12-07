@@ -11,14 +11,14 @@ export default class TitlePage extends Component {
         open={this.props.displayTitleScreen}
         onSubmit={this.handleSubmit}
       >
-        <Modal.Header>This is Trips and Adventures Page</Modal.Header>
+        <Modal.Header>Let's go Outside</Modal.Header>
         <Modal.Content image>
-          <Image size="medium" src="https://previews.123rf.com/images/fpwing/fpwing1611/fpwing161100121/66833965-mountain-trails-three-peaks-lavaredo.jpg" wrapped />
+          <Image size="large" src="https://previews.123rf.com/images/fpwing/fpwing1611/fpwing161100121/66833965-mountain-trails-three-peaks-lavaredo.jpg" wrapped />
           <Modal.Description>
             <Grid columns={1}>
               <Grid.Column>
-                <h1>Blah blah blab </h1>
-
+                <h3>I've always loved the outdoors. I am kind of a nut though. My wife always asks if I watched this old show or that one. My response was always the same.. Nope, I was outside playing. Now that I'm older, I want to share those trips with others. I also want to know what they're getting themselves into.</h3>
+                <h3>Welcome To My Site.......</h3>
               </Grid.Column>
             </Grid>
           </Modal.Description>
