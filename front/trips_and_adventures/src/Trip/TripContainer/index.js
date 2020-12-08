@@ -10,6 +10,7 @@ export default function TripContainer(props) {
       getTrip={ props.getTrip }
       getMyTrips={ props.getMyTrips }
       toggleEditTripForm={ props.toggleEditTripForm }
+      seeAllTrips={ props.seeAllTrips }
     />
   )
 }

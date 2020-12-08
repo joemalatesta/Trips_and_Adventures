@@ -9,35 +9,74 @@ export default class EditTripForm extends Component {
     this.state = {
       trip_name: this.props.trip.trip_name,
       trip_date: this.props.trip.trip_date,
-      about_trip: this.props.trip.about_trip
+      about_trip: this.props.trip.about_trip,
     }
-    console.log(props.trip)
+
+    //console.log("this State    ", this.state.trip.trip_name)
+    console.log("this State    ", this.props.trip.trip_name)
   }
 
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     })
+    console.log(event.target.value)
   }
 
   handleDropChange = (event, data) => {
     this.setState({
       status: data.value
     })
+      console.log("Drop Change   " + data.value)
   }
 
   handleSubmit = (event) => {
+    console.log("submit   " + event)
     event.preventDefault()
 
-    this.props.updateTrip(this.props)
+    this.updateTrip(this.state)
+    console.log("handle submit" + this.state)
     this.props.toggleEditTripForm()
 
     this.setState({
       trip_name: '',
       trip_date: '',
-      about_trip: ''
+      about_trip: '',
     })
+
+
   }
+
+  updateTrip = async (updatedTripInfo) => {
+
+    console.log("update trip   " + updatedTripInfo)
+    try {
+      const url = process.env.REACT_APP_API_URL + '/api/trips/' + this.props.trip.id
+      console.log("this is my url   " + url)
+      const updateTripResponse = await fetch(url, {
+        credentials: 'include',
+        method: 'PUT',
+        body: JSON.stringify(updatedTripInfo),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const updateTripJson = await updateTripResponse.json()
+
+      if(updateTripResponse.status === 200) {
+        console.log('Trip UPDATED.')
+        // await this.setState({
+        //   trips: updateTripJson.data,
+        //   tripIdToEdit: -1
+        // })
+      }
+      this.props.getTrip(this.props.trip.id)
+      this.props.seeAllTrips()
+    } catch(err) {
+      console.log('ERROR UPDATING Trip.', err)
+    }
+  }
+
 
   render() {
 

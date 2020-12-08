@@ -46,7 +46,7 @@ export default class NewPostForm extends Component {
           <Image size="medium" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYR_XvGxXDb7cPObv_6mXZ54Y-xZKQqdpAUA&usqp=CAU" wrapped />
           <Modal.Description>
             <Header>Enter Post</Header>
-            <Label>{this.props.trips.trip_name}</Label>
+            <Label>{this.props.trip.trip_name}</Label>
               <Form.Input
                 control="textarea"
                 name="user_posts"

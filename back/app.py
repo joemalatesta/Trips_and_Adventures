@@ -22,6 +22,12 @@ PORT = 8000
 
 app = Flask(__name__)
 mail = Mail(app)
+
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE='None'
+)
+
 app.secret_key = "Dust Bunnies Snuggle best with Dirty Dogs"
 
 login_manager = LoginManager()

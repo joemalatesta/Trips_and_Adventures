@@ -208,34 +208,46 @@ export default class App extends Component {
     this.getMyTrips()
   }
 
-  updateTrip = async (updatedTripInfo) => {
-    console.log(updatedTripInfo)
-    try {
-      const url = process.env.REACT_APP_API_URL + '/api/trips/' + this.state.trips.id
-      console.log(this.state.trips.id)
-      const updateTripResponse = await fetch(url, {
-        credentials: 'include',
-        method: 'PUT',
-        body: JSON.stringify(updatedTripInfo),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const updateTripJson = await updateTripResponse.json()
 
-      if(updateTripResponse.status === 200) {
-        console.log('Trip UPDATED.')
-        this.setState({
-          trips: updateTripJson.data,
-          tripIdToEdit: -1
-        })
-      }
-      this.getMyTrips()
-    } catch(err) {
-      console.log('ERROR UPDATING Trip.', err)
-    }
 
-  }
+
+
+  // createPost = async (postToCreate) => {
+  //   console.log(postToCreate)
+  //   console.log(this.props.posts)
+  //   console.log(this.currentUserId)
+  //   try {
+  //     const url = process.env.REACT_APP_API_URL + '/api/posts/'
+  //
+  //     console.log(url)
+  //     console.log(JSON.stringify(postToCreate))
+  //
+  //     const createPostResponse = await fetch(url, {
+  //       method: 'POST',
+  //       body: JSON.stringify(postToCreate),
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       credentials: 'include'
+  //     })
+  //
+  //     console.log(createPostResponse)
+  //
+  //     const createPostJson = await createPostResponse.json()
+  //
+  //     console.log(createPostJson)
+  //
+  //     if (createPostResponse.status === 200 || createPostResponse.status === 201) {
+  //       console.log('Post CREATED')
+  //       this.setState({
+  //         posts: [...this.state.posts, createPostJson.data]
+  //       })
+  //     }
+  //     this.getMyPosts()
+  //   } catch(err) {
+  //     console.log('ERROR CREATING Post', err)
+  //   }
+  // }
 
   componentDidMount() {
     this.getTrips()
@@ -246,8 +258,10 @@ export default class App extends Component {
       <div className='App'>
         <Nav
           trip={ this.state.trip }
+          updateTrip={ this.updateTrip }
           loggedIn={ this.state.loggedIn }
           getTrips={ this.getTrips}
+          getTrip={this.getTrip}
           getMyTrips={ this.getMyTrips }
           createTrip={ this.createTrip }
           createUser={ this.createUser }
@@ -258,6 +272,7 @@ export default class App extends Component {
           seeAllTrips={ this.seeAllTrips }
           seeAllMyTrips={ this.seeAllMyTrips }
           trips={ this.state.trips }
+          createPost={ this.createPost }
         />
         <Body
           trip={ this.state.trip }
@@ -265,6 +280,7 @@ export default class App extends Component {
           showTrip={ this.state.showTrip }
           loggedIn={ this.state.loggedIn }
           createTrip={ this.createTrip }
+          createPost={ this.createPost }
           currentUserId={ this.state.currentUserId }
           getTrips={ this.getTrips }
           getTrip={ this.getTrip }

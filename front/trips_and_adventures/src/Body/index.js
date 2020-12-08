@@ -44,10 +44,12 @@ export default class Body extends Component {
             deleteTrip={ this.props.deleteTrip }
             removeTrip={ this.props.removeTrip}
             getTrips={this.props.getTrips}
+            getTrip={this.props.getTrip}
             showTrip={ this.props.showTrip }
             tripIdToEdit={this.props.tripIdToEdit}
             updateTrip={this.props.updateTrip}
-            seeAllTrips={ this.seeAllTrips }
+            seeAllTrips={ this.props.seeAllTrips }
+            createPost={ this.createPost }
             />
           : <TripContainer
               trip={ this.props.trip }
@@ -57,8 +59,9 @@ export default class Body extends Component {
               getTrip={ this.props.getTrip }
               toggleEditTripForm={ this.toggleEditTripForm }
               togglePostForm={ this.togglePostForm }
-              seeAllTrips={ this.seeAllTrips }
+              seeAllTrips={ this.props.seeAllTrips }
               getMyTrips={ this.props.getMyTrips }
+              createPost={ this.createPost }
             />
         }
       </React.Fragment>
